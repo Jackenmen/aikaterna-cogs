@@ -1,0 +1,13 @@
+version: "1"
+rules:
+  - base: master
+    upstream: aikaterna:v3
+    mergeMethod: hardreset
+    mergeUnstable: true
+  - base: lucifer-bot
+    upstream: aikaterna:v3
+    mergeMethod: merge
+    mergeUnstable: true
+    conflictReviewers:
+      - jack1142
+label: ":arrow_heading_down: update fork from upstream"
