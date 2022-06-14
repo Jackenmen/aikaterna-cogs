@@ -40,8 +40,7 @@ warnings.filterwarnings(
     module=r"^(feedparser|rss)(\..+)?$",
     message=(
         "To avoid breaking existing software while fixing issue 310, a temporary mapping has been created from"
-        " `updated_parsed` to `published_parsed` if `updated_parsed` doesn't exist. This fallback will be removed"
-        " in a future version of feedparser."
+        " `updated_parsed` to `published_parsed` if `updated_parsed` doesn't exist"
     )
 )
 
