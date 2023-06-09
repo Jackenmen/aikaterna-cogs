@@ -7,6 +7,7 @@ import discord
 import feedparser
 import filetype
 import io
+import itertools
 import logging
 import re
 import time
@@ -32,7 +33,7 @@ IPV6_RE = re.compile("([a-f0-9:]+:+)+[a-f0-9]+")
 GuildMessageable = Union[discord.TextChannel, discord.VoiceChannel, discord.StageChannel, discord.Thread]
 
 
-__version__ = "2.1.0"
+__version__ = "2.1.1"
 
 warnings.filterwarnings(
     "ignore",
@@ -1004,7 +1005,7 @@ class RSS(commands.Cog):
     async def _rss_listall(self, ctx):
         """List all saved feeds for this server."""
         all_channels = await self.config.all_channels()
-        all_guild_channels = [x.id for x in ctx.guild.channels]
+        all_guild_channels = [x.id for x in itertools.chain(ctx.guild.channels, ctx.guild.threads)]
         msg = ""
         for channel_id, data in all_channels.items():
             if channel_id in all_guild_channels:
@@ -1658,8 +1659,8 @@ class RSS(commands.Cog):
                         await self.get_current_feed(
                             queue_item[2].channel, queue_item[2].feed_name, queue_item[2].feed_data
                         )
-                    except aiohttp.client_exceptions.InvalidURL:
-                        log.debug(f"Feed at {url} is bad or took too long to respond.")
+                    except aiohttp.client_exceptions.InvalidURL as e:
+                        log.debug(f"Feed at {e.url} is bad or took too long to respond.")
                         continue
 
                     if self._post_queue_size < 300:
