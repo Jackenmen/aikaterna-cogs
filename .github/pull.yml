@@ -1,6 +1,6 @@
 version: "1"
 rules:
-  - base: master
+  - base: v3
     upstream: aikaterna:v3
     mergeMethod: hardreset
     mergeUnstable: true
@@ -9,5 +9,5 @@ rules:
     mergeMethod: merge
     mergeUnstable: true
     conflictReviewers:
-      - jack1142
+      - Jackenmen
 label: ":arrow_heading_down: update fork from upstream"
